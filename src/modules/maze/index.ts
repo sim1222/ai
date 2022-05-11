@@ -10,8 +10,8 @@ export default class extends Module {
 
 	@autobind
 	public install() {
-		this.post();
-		setInterval(this.post, 1000 * 60 * 3);
+		//this.post();
+		//setInterval(this.post, 1000 * 60 * 3);
 
 		return {
 			mentionHook: this.mentionHook
@@ -27,10 +27,10 @@ export default class extends Module {
 		if (data.lastPosted == date) return;
 		data.lastPosted = date;
 		this.setData(data);
-
+	
 		this.log('Time to maze');
 		const file = await this.genMazeFile(date);
-
+	
 		this.log('Posting...');
 		this.ai.post({
 			text: serifs.maze.post,
