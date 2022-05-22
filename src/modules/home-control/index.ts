@@ -328,24 +328,32 @@ export default class extends Module {
 
 		const commandText = () => {
 			if (data.command.device == '電気') {
-				return data.command.state ? 'つけました' : '消しました';
+				if (data.command.state) {
+					return 'つけました'
+				} else {
+					return 'けしました'
+				}
 			} else if (data.command.device == 'エアコン') {
-				return data.command.state ? `${data.command.temp}℃の${data.command.mode}にしました` : '消しました';
+				if (data.config.state) {
+					return `${data.command.temp.toString()}℃の${data.command.mode.toString()}にしました`;
+				}
+				return '消しました';
 			}
 			return false;
 		};
-		const text = `${data.time}経ったので、${data.command.device}を${commandText()}`;
+
+		const text = `${data.time.toString()}経ったので、${data.command.device}を${commandText().toString()}`;
 
 		if (data.isDm) {
 			commandExec(data.command);
 			this.ai.sendMessage(friend.userId, {
-				text: text
+				text
 			});
 		} else {
 			commandExec(data.command);
 			this.ai.post({
 				replyId: data.msgId,
-				text: text
+				text
 			});
 		}
 	}
