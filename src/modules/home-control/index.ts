@@ -224,7 +224,7 @@ export default class extends Module {
 				if (cool) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'cool', temp);
-						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
+						console.log(`エアコンを${temp}℃の冷房にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
@@ -237,7 +237,7 @@ export default class extends Module {
 				} else if (warm) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'warm', temp);
-						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
+						console.log(`エアコンを${temp}℃の暖房にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
@@ -250,7 +250,7 @@ export default class extends Module {
 				} else if (dry) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'dry', temp);
-						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
+						console.log(`エアコンを${temp}℃の除湿にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
