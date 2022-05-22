@@ -275,6 +275,7 @@ export default class extends Module {
 			} else if (data.command.device == 'エアコン') {
 				return data.command.state ? `${data.command.temp}℃の${data.command.mode}にしました` : '消しました';
 			}
+			return false;
 		};
 
 		const text = '${data.time}経ったので、${data.command.device}を${commandText()}しました';
