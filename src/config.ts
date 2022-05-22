@@ -2,7 +2,7 @@ type Config = {
 	host: string;
 	i: string;
 	master?: string;
-	masterIds?: Array<string>;
+	masterIds: Array<string>;
 	wsUrl: string;
 	apiUrl: string;
 	keywordEnabled: boolean;

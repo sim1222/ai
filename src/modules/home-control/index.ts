@@ -178,7 +178,7 @@ export default class extends Module {
 
 		//タイマー部分
 
-		if (!config.masterId.includes(msg.userId)) return false;
+		if (!config.masterIds.includes(msg.userId)) return false;
 
 		if (timerHook) {
 
