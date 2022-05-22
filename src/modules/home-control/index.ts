@@ -51,10 +51,10 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 		button,
 	});
 	if (mode) {
-		params.append('mode', mode);
+		params.append('operation_mode', mode);
 	}
 	if (temp) {
-		params.append('temp', temp.toString());
+		params.append('temperature', temp.toString());
 	}
 
 
