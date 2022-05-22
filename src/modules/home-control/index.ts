@@ -178,7 +178,9 @@ export default class extends Module {
 
 		//タイマー部分
 
-		if (!config.masterIds.includes(msg.userId)) return false;
+		if (!config.masterIds.includes(msg.userId)) {
+			return msg.reply(`ご主人さまではありませんよね！？`);
+		}
 
 		if (timerHook) {
 
@@ -222,9 +224,7 @@ export default class extends Module {
 
 		//操作部分
 
-		if (!(onHook || offHook || setHook)) {
-			return msg.reply('ご主人さまではありませんよね！？');
-		}
+		if (!(onHook || offHook || setHook)) return false;
 
 		if (light) {
 			if (onHook) {
