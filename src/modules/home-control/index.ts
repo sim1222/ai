@@ -70,7 +70,7 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 
 
 export default class extends Module {
-	public readonly name = 'weather';
+	public readonly name = 'home-control';
 
 	@autobind
 	public install() {
