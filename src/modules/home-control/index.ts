@@ -208,7 +208,7 @@ export default class extends Module {
 					console.log('エラーが発生しました');
 					return msg.reply(`エラーが発生しました`);
 				}
-				console.log('エアコンを${res.temp}℃の${res.mode}にしました');
+				console.log(`エアコンを${res.temp}℃の${res.mode}にしました`);
 				return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 			} else if (offHook) {
 				console.log('エアコンをOFFにします');
@@ -224,12 +224,12 @@ export default class extends Module {
 				if (cool) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'cool', temp);
-						console.log('エアコンを${res.temp}℃の${res.mode}にします');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
 						}
-						console.log('エアコンを${res.temp}℃の${res.mode}にしました');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にしました`);
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
@@ -237,12 +237,12 @@ export default class extends Module {
 				} else if (warm) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'warm', temp);
-						console.log('エアコンを${res.temp}℃の${res.mode}にします');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
 						}
-						console.log('エアコンを${res.temp}℃の${res.mode}にしました');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にしました`);
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
@@ -250,12 +250,12 @@ export default class extends Module {
 				} else if (dry) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'dry', temp);
-						console.log('エアコンを${res.temp}℃の${res.mode}にします');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にします`);
 						if (!res) {
 							console.log('エラーが発生しました');
 							return msg.reply(`エラーが発生しました`);
 						}
-						console.log('エアコンを${res.temp}℃の${res.mode}にしました');
+						console.log(`エアコンを${res.temp}℃の${res.mode}にしました`);
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
