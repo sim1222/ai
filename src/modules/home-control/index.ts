@@ -25,13 +25,14 @@ const setLight = async (state: Boolean) => {
 	const res = await fetch(`https://api.nature.global/appliances/${config.natureLightId}/light`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${config.natureApiKey}`
 		},
 		body: JSON.stringify({
 			button
 		})
 	});
+
+	console.log(res);
 	return await res.json();
 };
 
@@ -42,7 +43,6 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 	const res = await fetch(`https://api.nature.global/appliances/${config.natureLightId}/aircon_settings`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${config.natureApiKey}`
 		},
 		body: JSON.stringify({
@@ -52,6 +52,7 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 		})
 	});
 	const resJson = await res.json();
+	console.log(resJson);
 	switch (resJson.mode) {
 		case 'cool':
 			resJson.mode = '冷房';
