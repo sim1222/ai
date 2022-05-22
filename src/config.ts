@@ -13,6 +13,9 @@ type Config = {
 	mecabDic?: string;
 	memoryDir?: string;
 	weatherlocation?: string;
+	natureApiKey?: string;
+	natureLightId?: string;
+	natureAirconId?: string;
 };
 
 const config = require('../config.json');
