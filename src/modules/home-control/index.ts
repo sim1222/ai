@@ -94,7 +94,8 @@ export default class extends Module {
 	@autobind
 	public install() {
 		return {
-			mentionHook: this.mentionHook
+			mentionHook: this.mentionHook,
+			timeoutCallback: this.timeoutCallback
 		};
 	}
 
@@ -325,7 +326,6 @@ export default class extends Module {
 			}
 		}
 
-
 		const commandText = () => {
 			if (data.command.device == '電気') {
 				return data.command.state ? 'つけました' : '消しました';
@@ -334,8 +334,8 @@ export default class extends Module {
 			}
 			return false;
 		};
+		const text = `${data.time}経ったので、${data.command.device}を${commandText()}`;
 
-		const text = '${data.time}経ったので、${data.command.device}を${commandText()}しました';
 		if (data.isDm) {
 			commandExec(data.command);
 			this.ai.sendMessage(friend.userId, {
