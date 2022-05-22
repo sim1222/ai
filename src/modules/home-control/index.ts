@@ -32,10 +32,14 @@ const setLight = async (state: Boolean) => {
 		headers: {
 			Authorization: `Bearer ${config.natureApiKey}`,
 		},
-		body: params.toString(),
+		body: params
 	});
 
 	console.log(res);
+	if (res.status !== 200) {
+		console.log('error');
+		return false;
+	}
 	return await res.json();
 };
 
@@ -54,15 +58,19 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 	}
 
 
-	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureLightId}/aircon_settings`, {
+	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureAirconId}/aircon_settings`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${config.natureApiKey}`,
 		},
-		body: params.toString()
+		body: params
 	});
 	const resJson = await res.json();
 	console.log(resJson);
+	if (res.status !== 200) {
+		console.log('error');
+		return false;
+	}
 	switch (resJson.mode) {
 		case 'cool':
 			resJson.mode = '冷房';
@@ -154,9 +162,8 @@ export default class extends Module {
 
 
 		const commandExec = async (command) => {
-
 			if (command.error) {
-				return msg.reply(`エラーが発生しました。`);
+				return msg.reply(`コマンドが正しくありません`);
 			}
 			switch (command.device) {
 				case 'ライト':
@@ -177,10 +184,14 @@ export default class extends Module {
 
 		if (light) {
 			if (onHook) {
-				await setLight(true);
+				if (!await setLight(true)) {
+					return msg.reply(`エラーが発生しました`);
+				}
 				return msg.reply('電気をつけました');
 			} else if (offHook) {
-				await setLight(false);
+				if (!await setLight(false)) {
+					return msg.reply(`エラーが発生しました`);
+				}
 				return msg.reply('電気を消しました');
 			}
 		}
@@ -188,14 +199,22 @@ export default class extends Module {
 		if (aircon) {
 			if (onHook) {
 				const res = await setAircon(true);
+				if (!res) {
+					return msg.reply(`エラーが発生しました`);
+				}
 				return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 			} else if (offHook) {
-				await setAircon(false);
+				if (!await setAircon(false)) {
+					return msg.reply(`エラーが発生しました`);
+				}
 				return msg.reply('エアコンを消しました');
 			} else if (setHook) {
 				if (cool) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'cool', temp);
+						if (!res) {
+							return msg.reply(`エラーが発生しました`);
+						}
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
@@ -203,6 +222,9 @@ export default class extends Module {
 				} else if (warm) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'warm', temp);
+						if (!res) {
+							return msg.reply(`エラーが発生しました`);
+						}
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
@@ -210,6 +232,9 @@ export default class extends Module {
 				} else if (dry) {
 					if (tempList.includes(temp)) {
 						const res = await setAircon(true, 'dry', temp);
+						if (!res) {
+							return msg.reply(`エラーが発生しました`);
+						}
 						return msg.reply(`エアコンを${res.temp}℃の${res.mode}にしました`);
 					} else {
 						return msg.reply('エアコンの設定が正しくありません');
