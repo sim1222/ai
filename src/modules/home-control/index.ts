@@ -59,7 +59,7 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 		headers: {
 			Authorization: `Bearer ${config.natureApiKey}`,
 		},
-		body: Object.keys(params).map(key => key + '=' + params[key]).join('&')
+		body: params.toString()
 	});
 	const resJson = await res.json();
 	console.log(resJson);
