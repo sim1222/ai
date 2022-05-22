@@ -178,11 +178,13 @@ export default class extends Module {
 
 		//タイマー部分
 
-		if (!config.masterIds.includes(msg.userId)) {
-			return msg.reply(`ご主人さまではありませんよね！？`);
-		}
+
 
 		if (timerHook) {
+
+			if (!config.masterIds.includes(msg.userId)) {
+				return msg.reply(`ご主人さまではありませんよね！？`);
+			}
 
 			if ((seconds + minutes + hours) == 0) {
 				msg.reply(serifs.timer.invalid);
@@ -227,6 +229,11 @@ export default class extends Module {
 		if (!(onHook || offHook || setHook)) return false;
 
 		if (light) {
+
+			if (!config.masterIds.includes(msg.userId)) {
+				return msg.reply(`ご主人さまではありませんよね！？`);
+			}
+
 			if (onHook) {
 				console.log('ライトをONにします');
 				if (!await setLight(true)) {
@@ -245,6 +252,11 @@ export default class extends Module {
 		}
 
 		if (aircon) {
+
+			if (!config.masterIds.includes(msg.userId)) {
+				return msg.reply(`ご主人さまではありませんよね！？`);
+			}
+
 			if (onHook) {
 				const res = await setAircon(true);
 				console.log('エアコンをONにします');
