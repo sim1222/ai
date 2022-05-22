@@ -222,7 +222,9 @@ export default class extends Module {
 
 		//操作部分
 
-		if (!(onHook || offHook || setHook)) return false;
+		if (!(onHook || offHook || setHook)) {
+			return msg.reply('ご主人さまではありませんよね！？');
+		}
 
 		if (light) {
 			if (onHook) {
