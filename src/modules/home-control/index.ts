@@ -173,7 +173,45 @@ export default class extends Module {
 			}
 		}
 
+		//------------------------------------------------------
 
+		//タイマー部分
+		if (timerHook) {
+
+			if ((seconds + minutes + hours) == 0) {
+				msg.reply(serifs.timer.invalid);
+				return true;
+			}
+
+			const time =
+				(1000 * seconds) +
+				(1000 * 60 * minutes) +
+				(1000 * 60 * 60 * hours);
+
+			if (time > 86400000) {
+				msg.reply(serifs.timer.tooLong);
+				return true;
+			}
+
+			if (checkCommand().error) {
+				msg.reply('設定が正しくありません');
+				return true;
+			}
+
+			msg.reply(serifs.timer.set);
+
+			const str = `${hours ? hoursQuery![0] : ''}${minutes ? minutesQuery![0] : ''}${seconds ? secondsQuery![0] : ''}`;
+
+			// タイマーセット
+			this.setTimeoutWithPersistence(time, {
+				isDm: msg.isDm,
+				msgId: msg.id,
+				userId: msg.friend.userId,
+				command: checkCommand(),
+			});
+
+			return true;
+		}
 
 
 		//------------------------------------------------------
@@ -264,45 +302,7 @@ export default class extends Module {
 			}
 		}
 
-		//タイマー部分
 
-
-		if (timerHook) {
-
-			if ((seconds + minutes + hours) == 0) {
-				msg.reply(serifs.timer.invalid);
-				return true;
-			}
-
-			const time =
-				(1000 * seconds) +
-				(1000 * 60 * minutes) +
-				(1000 * 60 * 60 * hours);
-
-			if (time > 86400000) {
-				msg.reply(serifs.timer.tooLong);
-				return true;
-			}
-
-			if (checkCommand().error) {
-				msg.reply('設定が正しくありません');
-				return true;
-			}
-
-			msg.reply(serifs.timer.set);
-
-			const str = `${hours ? hoursQuery![0] : ''}${minutes ? minutesQuery![0] : ''}${seconds ? secondsQuery![0] : ''}`;
-
-			// タイマーセット
-			this.setTimeoutWithPersistence(time, {
-				isDm: msg.isDm,
-				msgId: msg.id,
-				userId: msg.friend.userId,
-				command: checkCommand(),
-			});
-
-			return true;
-		}
 	}
 
 	@autobind
