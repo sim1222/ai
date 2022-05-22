@@ -335,14 +335,14 @@ export default class extends Module {
 				}
 			} else if (data.command.device == 'エアコン') {
 				if (data.config.state) {
-					return `${data.command.temp.toString()}℃の${data.command.mode.toString()}にしました`;
+					return `${data.command.temp}℃の${data.command.mode}にしました`;
 				}
 				return '消しました';
 			}
 			return false;
 		};
 
-		const text = `${data.time.toString()}経ったので、${data.command.device}を${commandText().toString()}`;
+		const text = `${data.time}経ったので、${data.command.device}を${commandText()}`;
 
 		if (data.isDm) {
 			commandExec(data.command);
