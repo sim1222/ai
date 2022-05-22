@@ -25,7 +25,8 @@ const setLight = async (state: Boolean) => {
 	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureLightId}/light`, {
 		method: 'POST',
 		headers: {
-			authorization: `Bearer ${config.natureApiKey}`
+			authorization: `Bearer ${config.natureApiKey}`,
+			accept: "application/json",
 		},
 		body: JSON.stringify({
 			button
@@ -43,7 +44,8 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureLightId}/aircon_settings`, {
 		method: 'POST',
 		headers: {
-			authorization: `Bearer ${config.natureApiKey}`
+			authorization: `Bearer ${config.natureApiKey}`,
+			accept: "application/json",
 		},
 		body: JSON.stringify({
 			button,
