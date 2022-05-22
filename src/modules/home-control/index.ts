@@ -177,6 +177,9 @@ export default class extends Module {
 		//------------------------------------------------------
 
 		//タイマー部分
+
+		if (!config.masterId.includes(msg.userId)) return false;
+
 		if (timerHook) {
 
 			if ((seconds + minutes + hours) == 0) {
@@ -330,9 +333,9 @@ export default class extends Module {
 			if (data.command.device == '電気') {
 				if (data.command.state) {
 					return 'つけました'
-				} else {
-					return 'けしました'
 				}
+				return 'けしました'
+
 			} else if (data.command.device == 'エアコン') {
 				if (data.config.state) {
 					return `${data.command.temp}℃の${data.command.mode}にしました`;
