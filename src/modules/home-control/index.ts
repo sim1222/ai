@@ -22,16 +22,17 @@ const setLight = async (state: Boolean) => {
 
 	const button = state ? 'on-100' : 'off';
 
-	const params = {
+	const params = new URLSearchParams({
 		button,
-	}
+	});
+
 
 	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureLightId}/light`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${config.natureApiKey}`,
 		},
-		body: Object.keys(params).map(key => key + '=' + params[key]).join('&')
+		body: params.toString(),
 	});
 
 	console.log(res);
@@ -42,11 +43,16 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 
 	const button = state ? '' : 'power-off';
 
-	const params = {
+	const params = new URLSearchParams({
 		button,
-		mode,
-		temp
+	});
+	if (mode) {
+		params.append('mode', mode);
 	}
+	if (temp) {
+		params.append('temp', temp.toString());
+	}
+
 
 	const res = await fetch(`https://api.nature.global/1/appliances/${config.natureLightId}/aircon_settings`, {
 		method: 'POST',
