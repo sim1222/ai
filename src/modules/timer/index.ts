@@ -24,6 +24,12 @@ export default class extends Module {
 		const minutes = minutesQuery ? parseInt(minutesQuery[1], 10) : 0;
 		const hours = hoursQuery ? parseInt(hoursQuery[1], 10) : 0;
 
+		const onHook = msg.text.includes('オン') || msg.text.includes('つけて') || msg.text.includes('つけろ') || msg.text.includes('点けて') || msg.text.includes('点けろ');
+		const offHook = msg.text.includes('オフ') || msg.text.includes('けして') || msg.text.includes('消して') || msg.text.includes('消せ') || msg.text.includes('けせ');
+		const setHook = msg.text.includes('セット') || msg.text.includes('せっと') || msg.text.includes('にして');
+		const timerHook = msg.text.includes('秒後に') || msg.text.includes('分後に') || msg.text.includes('時間後に');
+
+		if (onHook || offHook || setHook || timerHook) return false;
 		if (!(secondsQuery || minutesQuery || hoursQuery)) return false;
 
 		if ((seconds + minutes + hours) == 0) {
