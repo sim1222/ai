@@ -2,6 +2,7 @@ type Config = {
 	host: string;
 	i: string;
 	master?: string;
+	masterIds: Array<string>;
 	wsUrl: string;
 	apiUrl: string;
 	keywordEnabled: boolean;
@@ -13,6 +14,9 @@ type Config = {
 	mecabDic?: string;
 	memoryDir?: string;
 	weatherlocation?: string;
+	natureApiKey?: string;
+	natureLightId?: string;
+	natureAirconId?: string;
 };
 
 const config = require('../config.json');
