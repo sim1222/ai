@@ -87,6 +87,28 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 	}
 };
 
+const pushDestroy = async () => {
+
+	const params = new URLSearchParams({
+		signals: 'd351aa1d-df69-42fd-9772-c7b0903cc1b7',
+	});
+
+	const res = await fetch(`https://api.nature.global/1/appliances/d3db3090-ea18-4f51-bd57-0648928d7015/signal_orders`, {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${config.natureApiKey}`,
+		},
+		body: params
+	});
+
+	console.log(res);
+	if (res.status !== 200) {
+		console.log('error');
+		return false;
+	}
+	return await res.json();
+};
+
 
 export default class extends Module {
 	public readonly name = 'home-control';
@@ -120,6 +142,7 @@ export default class extends Module {
 
 		const light = msg.text.includes('電気') || msg.text.includes('でんき') || msg.text.includes('照明') || msg.text.includes('ライト');
 		const aircon = msg.text.includes('エアコン') || msg.text.includes('空調') || msg.text.includes('えあこん');
+		const destroy = msg.text.includes('環境破壊') || msg.text.includes('かんきょうはかい') || msg.text.includes('反SDGs');
 
 		const cool = msg.text.includes('冷房') || msg.text.includes('れいぼう') || msg.text.includes('つめた');
 		const warm = msg.text.includes('暖房') || msg.text.includes('だんぼう') || msg.text.includes('あたたか');
@@ -226,7 +249,7 @@ export default class extends Module {
 
 		//操作部分
 
-		if (!(onHook || offHook || setHook)) return false;
+		if (!(onHook || offHook || setHook || destroy)) return false;
 
 		if (light) {
 
@@ -318,6 +341,18 @@ export default class extends Module {
 					}
 				}
 			}
+		}
+
+		if (destroy) {
+			if (!config.masterIds.includes(msg.userId)) {
+				return msg.reply(`ご主人さまではありませんよね！？`);
+			}
+			console.log('環境破壊します');
+			if (!await pushDestroy()) {
+				console.log('エラーが発生しました');
+				return msg.reply(`エラーが発生しました`);
+			}
+			return msg.reply('環境破壊ボタンを押しました');
 		}
 
 
