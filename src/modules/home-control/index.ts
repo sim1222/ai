@@ -89,16 +89,13 @@ const setAircon = async (state: Boolean, mode?: mode, temp?: number) => {
 
 const pushDestroy = async () => {
 
-	const params = new URLSearchParams({
-		signals: 'd351aa1d-df69-42fd-9772-c7b0903cc1b7',
-	});
+	const signal = 'd351aa1d-df69-42fd-9772-c7b0903cc1b7'
 
-	const res = await fetch(`https://api.nature.global/1/appliances/d3db3090-ea18-4f51-bd57-0648928d7015/signal_orders`, {
+	const res = await fetch(`https://api.nature.global/1/signals/${signal}/send`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${config.natureApiKey}`,
 		},
-		body: params
 	});
 
 	console.log(res);
